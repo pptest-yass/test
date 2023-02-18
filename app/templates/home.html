@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Welcome : </p>
+    <p>Add post : </p>
+    <form method="post">
+        {{ form.csrf_token }}
+        {{ form.title.label }}
+        {{ form.title(class='hello') }}
+        <input type="submit" value="Register">
+    </form>  
+
+    <p>all your posts : </p>
+    {% for post in posts %}
+        <p>
+            <a href="{{ url_for('detail', id=post.id) }}">Title : {{ post.title }}</a>
+            <span>{{ post.created_on }}</span>
+        </p>
+        
+        {% else %}
+        <p>No posts yet.</p>
+    {% endfor %}
+    
+    <div>
+        {% if form.errors %}
+            {% for error in form.errors %}
+                    <p>{{ error }}</p>
+            {% endfor %}
+            
+        {% endif %} 
+    </div>
+{% endblock %}

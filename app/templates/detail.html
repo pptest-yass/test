@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Post #{{ post.id }} </p>
+    <p>Post title : {{ post.title }} </p>
+
+    <p>Change title : </p>
+    <form method="post">
+        {{ form.csrf_token }}
+        {{ form.title.label }}
+        {{ form.title(class='hello') }}
+        <input type="submit" value="change">
+    </form> 
+
+    <p>Delete this post ? 
+        <a href="{{ url_for('detail', id=post.id) }}">Delete</a> 
+    </p>
+{% endblock %}
