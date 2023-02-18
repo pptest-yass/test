@@ -3,10 +3,10 @@ from flask.views import MethodView
 from app.forms import PostCreationForm
 from app.models import Post, db
 from flask_login import current_user, login_required
-
+from app.decorators import admin_required
 
 class AdminView(MethodView):
-    decorators = [login_required]
+    decorators = [login_required, admin_required]
     
     def get(self):
         return render_template('admin.html')

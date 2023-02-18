@@ -9,11 +9,16 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer , primary_key=True)
     username = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    # role = db.Column(db.String)
     posts = db.relationship('Post', backref='user')
+    role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
 
 class Post(db.Model):
     id = db.Column(db.Integer , primary_key=True)
     title = db.Column(db.String)
     created_on = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+class Role(db.Model):
+    id = db.Column(db.Integer , primary_key=True)
+    name = db.Column(db.String)
+    users = db.relationship('User', backref='role')
